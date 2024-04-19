@@ -1,17 +1,24 @@
-[gd_scene load_steps=6 format=3 uid="uid://doiipenxh4gkv"]
+[gd_scene load_steps=9 format=3 uid="uid://doiipenxh4gkv"]
 
 [ext_resource type="Script" path="res://scripts/Interactable.gd" id="1_igt1c"]
 [ext_resource type="Resource" uid="uid://cw2l5ppoygcf5" path="res://resources/player/player_data.tres" id="2_cc6n8"]
 [ext_resource type="Script" path="res://scripts/InteractComponent.gd" id="2_gixv8"]
+[ext_resource type="Script" path="res://scripts/PickupComponent.gd" id="4_1v2lj"]
+[ext_resource type="Script" path="res://scripts/resources/item.gd" id="5_uaixa"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8a6ps"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_72hbk"]
 
-[node name="TestInteractable" type="StaticBody3D" node_paths=PackedStringArray("interact_action")]
+[sub_resource type="Resource" id="Resource_wspw6"]
+script = ExtResource("5_uaixa")
+name = "Test"
+description = ""
+
+[node name="TestInteractable" type="StaticBody3D" node_paths=PackedStringArray("interact_actions")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.123889, 1.29862, 9.8876)
 script = ExtResource("1_igt1c")
-interact_action = NodePath("InteractComponent")
+interact_actions = NodePath("Interactables")
 player_data = ExtResource("2_cc6n8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -20,9 +27,14 @@ shape = SubResource("BoxShape3D_8a6ps")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_72hbk")
 
-[node name="InteractComponent" type="Node" parent="."]
+[node name="Interactables" type="Node" parent="."]
+
+[node name="InteractComponent" type="Node" parent="Interactables"]
 script = ExtResource("2_gixv8")
-interactName = "Test Message"
+
+[node name="PickupComponent" type="Node" parent="Interactables"]
+script = ExtResource("4_1v2lj")
+itemToPickup = SubResource("Resource_wspw6")
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

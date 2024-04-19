@@ -12,7 +12,9 @@ class_name PlayerData
 @export var bob_freq: float
 @export var bob_amp: float
 
+var inventory: Array[Item] = []
+
 # Non-Modifiable public variables
 var t_bob: float = 0.0
 var is_interacting = false
-var looking_at: InteractComponent
+var looking_at: String

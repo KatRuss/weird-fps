@@ -1,7 +1,5 @@
 extends Node
 class_name InteractComponent
 
-@export var interactName: String
-
-func interact():
+func do(player_data: PlayerData):
 	print("THIS IS A VIRTUAL FUNCTION THAT SHOULD HAVE BEEN IMPLEMENTED BY THIS OBJECT.")

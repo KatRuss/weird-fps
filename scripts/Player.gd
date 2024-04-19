@@ -2,12 +2,12 @@ extends CharacterBody3D
 
 
 @export var player_data: PlayerData
-
 @onready var head = $Head
 @onready var camera = $Head/Camera
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
+var speed: float = 0
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
@@ -40,16 +40,22 @@ func _physics_process(delta):
 		player_data.is_interacting = false
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
+	if player_data.is_interacting:
+		speed = player_data.interact_speed
+	else:
+		speed = player_data.base_speed
+
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir = Input.get_vector("left", "right", "forwards", "backwards")
-	var direction = (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	var direction = (head.global_transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if direction:
-		velocity.x = direction.x * player_data.base_speed
-		velocity.z = direction.z * player_data.base_speed
+		velocity.x = direction.x * speed
+		velocity.z = direction.z * speed
 	else:
 		velocity.x = 0.0
 		velocity.z = 0.0
+
 	player_data.t_bob += delta * velocity.length() * float(is_on_floor())
 	camera.transform.origin = headbob(player_data.t_bob)
 	move_and_slide()
