@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ktw2slhyhua2"]
+[gd_scene load_steps=11 format=3 uid="uid://ktw2slhyhua2"]
 
 [ext_resource type="PackedScene" uid="uid://t28v0h3twt6e" path="res://scenes/objects/player.tscn" id="1_pnhyq"]
 [ext_resource type="PackedScene" uid="uid://boiq1oyf8liy6" path="res://scenes/objects/enviroment.tscn" id="1_t3fy7"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scripts/UI/CursorRing.gd" id="4_4lpts"]
 [ext_resource type="Resource" uid="uid://cw2l5ppoygcf5" path="res://resources/player/player_data.tres" id="5_pqr8q"]
 [ext_resource type="FontFile" uid="uid://cnkjee4bsyd6u" path="res://resources/fonts/IBMPlexMono-BoldItalic.ttf" id="6_d3iyp"]
+[ext_resource type="PackedScene" uid="uid://b18nhd1vpl2mp" path="res://scenes/objects/test_converstaion.tscn" id="8_wsjq8"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ycalw"]
 albedo_color = Color(0.4, 0.678431, 0.678431, 1)
@@ -46,6 +47,10 @@ transform = Transform3D(-0.968431, 0, 0.249281, 0, 1, 0, -0.249281, 0, -0.968431
 
 [node name="TestInteractable" parent="." instance=ExtResource("3_otvdq")]
 
+[node name="TestInteractable2" parent="." node_paths=PackedStringArray("interact_actions") instance=ExtResource("3_otvdq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.61169, 2.28087, 8.57414)
+interact_actions = NodePath("../TestInteractable/Interactables")
+
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
@@ -71,7 +76,7 @@ anchor_left = 1.0
 anchor_right = 1.0
 offset_left = 3.0
 offset_top = -26.0
-offset_right = 126.0
+offset_right = 206.0
 offset_bottom = -2.0
 grow_horizontal = 0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
@@ -81,3 +86,5 @@ theme_override_font_sizes/font_size = 18
 text = "Object"
 vertical_alignment = 1
 uppercase = true
+
+[node name="TestConverstaion" parent="." instance=ExtResource("8_wsjq8")]
